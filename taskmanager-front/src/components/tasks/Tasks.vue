@@ -165,6 +165,7 @@ export default {
         .then(response => {
           this.tasks.push(response.data)
           this.newTask = ''
+          this.$router.go()
         })
         .catch(error => this.setError(error, 'Cannot create task'))
     },

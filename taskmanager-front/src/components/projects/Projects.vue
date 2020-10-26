@@ -32,8 +32,8 @@
         <div v-if="project == editedProject">
           <form action="" @submit.prevent="updateProject(project)">
             <div class="mb-6 p-4 bg-white rounded border border-grey-light mt-4">
-              <input class="input" v-model="project.name" />
-              <input type="submit" value="Update" class=" my-2 bg-transparent text-sm hover:bg-blue hover:text-white text-blue border border-blue no-underline font-bold py-2 px-4 rounded cursor-pointer">
+              <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" v-model="project.name" />
+              <input type="submit" value="Update" class="py-2 px-2 mt-4 border border-transparent text-sm leading-50 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
             </div>
           </form>
         </div>
@@ -78,6 +78,7 @@ export default {
         .then(response => {
           this.projects.push(response.data)
           this.newProject = ''
+          this.$router.go()
         })
         .catch(error => this.setError(error, 'Cannot create project'))
     },
