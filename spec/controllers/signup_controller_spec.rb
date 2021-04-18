@@ -5,13 +5,20 @@ RSpec.describe SignupController, type: :controller do
   describe 'POST #create' do
     let(:password) { 'password' }
     let(:password_confirmation) { 'password' }
-    let(:email) { 'bboymoroz@mail.ru' }
+    let(:email) { 'test@email.com' }
     let(:user_params) { { email: email, password: password, password_confirmation: password_confirmation } }
 
     it 'returns http success' do
       post :create, params: user_params
       expect(response).to be_successful
+      expect(response_json.keys).to eq ['csrf']
+      expect(response.cookies[JWTSessions.access_cookie]).to be_present
     end
 
+    it 'creates a new user' do
+      expect do
+        post :create, params: user_params
+      end.to change(User, :count).by(1)
+    end
   end
 end
